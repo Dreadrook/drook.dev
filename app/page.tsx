@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Flex, Box, Heading, Text, VStack, Container, AbsoluteCenter } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, VStack, Container, AbsoluteCenter, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 const projects = [
@@ -53,25 +53,29 @@ export default function About() {
     <Flex direction={{ base: "column", md: "row" }} h="100vh" w="full">
       
      <Box flex="1.2" position="relative" bg="black" overflow="hidden">
-        {projects.map((p, i) => (
-          <Box
-            key={i}
-            as={NextLink}
-            href={p.href}
-            position="absolute"
-            inset="0"
-            opacity={index === i ? 1 : 0}
-            zIndex={index === i ? 1 : 0}
-            transition="opacity 0.8s ease-in-out"
-            // Background Image Logic
-            bgImage={`linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(${p.image})`}
-            bgSize="cover"
-            bgPosition="center"
-            textDecoration="none"
-            _hover={{ 
-               textDecoration: "none",
-               "& .project-content": { transform: "scale(1.05)" } 
-            }}
+  {projects.map((p, i) => (
+    <Box
+      key={i}
+      position="absolute"
+      inset="0"
+      opacity={index === i ? 1 : 0}
+      zIndex={index === i ? 1 : 0}
+      transition="opacity 0.8s ease-in-out"
+      bgImage={`linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(${p.image})`}
+      bgSize="cover"
+    >
+      {/* We use a Chakra Link with 'asChild' to wrap the NextLink.
+        This allows the entire area to be a link without Type errors.
+      */}
+      <Link asChild variant="plain" display="block" h="full" w="full" _hover={{ textDecoration: "none" }}>
+        <NextLink href={p.href}>
+          <Box 
+            h="full" 
+            w="full" 
+            display="flex" 
+            alignItems="center" 
+            justifyContent="center"
+            _hover={{ "& .project-content": { transform: "scale(1.05)" } }}
           >
             <AbsoluteCenter axis="both" w="full">
               <VStack 
@@ -88,24 +92,26 @@ export default function About() {
                   {p.desc}
                 </Text>
                 <Box 
-                    mt={4} 
-                    px={4} 
-                    py={1} 
-                    border="1px solid" 
-                    borderColor="whiteAlpha.400" 
-                    color="white" 
-                    fontSize="xs" 
-                    fontWeight="bold"
-                    borderRadius="sm"
+                  mt={4} 
+                  px={4} 
+                  py={1} 
+                  border="1px solid" 
+                  borderColor="whiteAlpha.400" 
+                  color="white" 
+                  fontSize="xs" 
+                  fontWeight="bold"
+                  borderRadius="sm"
                 >
                   VIEW PROJECT
                 </Box>
               </VStack>
             </AbsoluteCenter>
           </Box>
-        ))}
-      </Box>
-
+        </NextLink>
+      </Link>
+    </Box>
+  ))}
+</Box>
       {/* RIGHT SIDE: ABOUT ME */}
       <Flex 
         flex="1" 
