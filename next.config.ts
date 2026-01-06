@@ -1,8 +1,14 @@
-import type { NextConfig } from "next";
-
-export default {
+// next.config.ts
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: 'export',
+  images: {
+    unoptimized: true, 
+  },
+  // This helps with some Chakra v3 build issues
   experimental: {
     optimizePackageImports: ["@chakra-ui/react"],
   },
-} as NextConfig;
+};
+
+export default nextConfig;
