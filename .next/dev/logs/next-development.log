@@ -1,0 +1,100 @@
+[00:00:01.148] Server  LOG     
+[00:00:01.148] Server  LOG       We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+[00:00:01.149] Server  LOG       The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+[00:00:01.150] Server  LOG       	- include was updated to add '../.next/types/**/*.ts'
+[00:00:01.150] Server  LOG       	- include was updated to add '../.next/dev/types/**/*.ts'
+[00:00:01.150] Server  LOG     
+[00:00:01.321] Server  LOG     ✓ Ready in 953ms
+[00:00:10.291] Server  ERROR   ⨯ ./drook.dev/app/globals.css
+Error evaluating Node.js code
+Error: Cannot find module '@tailwindcss/postcss'
+Require stack:
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[root-of-the-server]__c5de1adf._.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[turbopack]_runtime.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\postcss.js
+    [at Module._resolveFilename (node:internal/modules/cjs/loader:1421:15)]
+    [at defaultResolveImpl (node:internal/modules/cjs/loader:1059:19)]
+    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1064:22)]
+    [at Module._load (node:internal/modules/cjs/loader:1227:37)]
+    [at TracingChannel.traceSync (node:diagnostics_channel:328:14)]
+    [at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)]
+    [at Module.require (node:internal/modules/cjs/loader:1504:12)]
+    [at require (node:internal/modules/helpers:152:16)]
+    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
+    [at <anonymous>]
+
+Import trace:
+  Client Component Browser:
+    ./drook.dev/app/globals.css [Client Component Browser]
+    ./drook.dev/app/layout.tsx [Server Component]
+
+
+[00:00:11.578] Browser ERROR   uncaughtError: Error: ./drook.dev/app/globals.css
+Error evaluating Node.js code
+Error: Cannot find module '@tailwindcss/postcss'
+Require stack:
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[root-of-the-server]__c5de1adf._.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[turbopack]_runtime.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\postcss.js
+    [at Module._resolveFilename (node:internal/modules/cjs/loader:1421:15)]
+    [at defaultResolveImpl (node:internal/modules/cjs/loader:1059:19)]
+    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1064:22)]
+    [at Module._load (node:internal/modules/cjs/loader:1227:37)]
+    [at TracingChannel.traceSync (node:diagnostics_channel:328:14)]
+    [at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)]
+    [at Module.require (node:internal/modules/cjs/loader:1504:12)]
+    [at require (node:internal/modules/helpers:152:16)]
+    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
+    [at <anonymous>]
+
+Import trace:
+  Client Component Browser:
+    ./drook.dev/app/globals.css [Client Component Browser]
+    ./drook.dev/app/layout.tsx [Server Component]
+
+
+[00:00:11.746] Browser ERROR   ./drook.dev/app/globals.css
+Error evaluating Node.js code
+Error: Cannot find module '@tailwindcss/postcss'
+Require stack:
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[root-of-the-server]__c5de1adf._.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[turbopack]_runtime.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\postcss.js
+    [at Module._resolveFilename (node:internal/modules/cjs/loader:1421:15)]
+    [at defaultResolveImpl (node:internal/modules/cjs/loader:1059:19)]
+    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1064:22)]
+    [at Module._load (node:internal/modules/cjs/loader:1227:37)]
+    [at TracingChannel.traceSync (node:diagnostics_channel:328:14)]
+    [at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)]
+    [at Module.require (node:internal/modules/cjs/loader:1504:12)]
+    [at require (node:internal/modules/helpers:152:16)]
+    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
+    [at <anonymous>]
+
+Import trace:
+  Client Component Browser:
+    ./drook.dev/app/globals.css [Client Component Browser]
+    ./drook.dev/app/layout.tsx [Server Component]
+[00:00:11.934] Browser ERROR   ./drook.dev/app/globals.css
+Error evaluating Node.js code
+Error: Cannot find module '@tailwindcss/postcss'
+Require stack:
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[root-of-the-server]__c5de1adf._.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\chunks\[turbopack]_runtime.js
+- C:\Users\sammi\Documents\PersonalSite\drook.dev\drook.dev\.next\dev\build\postcss.js
+    [at Module._resolveFilename (node:internal/modules/cjs/loader:1421:15)]
+    [at defaultResolveImpl (node:internal/modules/cjs/loader:1059:19)]
+    [at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1064:22)]
+    [at Module._load (node:internal/modules/cjs/loader:1227:37)]
+    [at TracingChannel.traceSync (node:diagnostics_channel:328:14)]
+    [at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)]
+    [at Module.require (node:internal/modules/cjs/loader:1504:12)]
+    [at require (node:internal/modules/helpers:152:16)]
+    [at <anonymous> (turbopack:///[turbopack-node]/transforms/postcss.ts:49:25)]
+    [at <anonymous>]
+
+Import trace:
+  Client Component Browser:
+    ./drook.dev/app/globals.css [Client Component Browser]
+    ./drook.dev/app/layout.tsx [Server Component]

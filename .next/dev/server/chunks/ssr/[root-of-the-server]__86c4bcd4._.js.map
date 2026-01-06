@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/sammi/Documents/PersonalSite/drook.dev/drook.dev/drook.dev/app/page.tsx"],"sourcesContent":["import Image from \"next/image\";\nimport { Button, HStack } from \"@chakra-ui/react\"\n\nexport default function Home() {\n  return (\n      <HStack>\n        <Button>Click me</Button>\n        <Button>Click me</Button>\n      </HStack>\n    );\n}\n"],"names":[],"mappings":";;;;;AACA;AAAA;;;AAEe,SAAS;IACtB,qBACI,8PAAC,qNAAM;;0BACL,8PAAC,kNAAM;0BAAC;;;;;;0BACR,8PAAC,kNAAM;0BAAC;;;;;;;;;;;;AAGhB"}}]
+}
