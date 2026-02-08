@@ -1,0 +1,9 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/resume.pdf", "/*.{png,jpg,gif,svg,pdf,css,js}"]
+  },
+  "mimeTypes": {
+    ".pdf": "application/pdf"
+  }
+}
