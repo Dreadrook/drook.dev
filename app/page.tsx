@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Flex, Box, Heading, Text, VStack, Container, AbsoluteCenter, Link } from "@chakra-ui/react";
+import { Flex, Box, Heading, Text, VStack, Container, AbsoluteCenter, Link, HStack, Spacer, MenuRoot, MenuContent, MenuItem, Button, MenuTrigger } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 const projects = [
@@ -34,11 +34,87 @@ const projects = [
   */
 ];
 
+const Navbar = () => (
+  <Box 
+    as="nav" 
+    position="fixed" 
+    top="0" 
+    w="full" 
+    zIndex="overlay" 
+    px={8} 
+    py={4} 
+    backdropFilter="blur(10px)" 
+    bg="blackAlpha.600"
+    borderBottom="1px solid"
+    borderColor="whiteAlpha.200"
+  >
+    <Flex align="center" maxW="full">
+      <Heading size="md" color="white" letterSpacing="widest">
+        SF
+      </Heading>
+      <Spacer />
+      <HStack gap={8}>
+        {
+          <><><Link href="/" color="white">
+            Home
+          </Link><MenuRoot>
+              <MenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  color="whiteAlpha.900"
+                  fontSize="sm"
+                  fontWeight="medium"
+                  h="auto"
+                  p={0}
+                  _hover={{ color: "blue.400", bg: "transparent" }}
+                >
+                  Projects
+                </Button>
+              </MenuTrigger>
+              <MenuContent bg="gray.900" borderColor="whiteAlpha.200">
+                {projects.map((project) => (
+                  <MenuItem
+                    key={project.title}
+                    value={project.title}
+                    _hover={{ bg: "blue.600", color: "white" }}
+                    p={0}
+                  >
+                    <Link
+                      asChild
+                      w="full"
+                      px={4}
+                      py={2}
+                      _hover={{ textDecoration: "none" }}
+                    >
+                      <NextLink href={project.href}>
+                        {project.title}
+                      </NextLink>
+                    </Link>
+                  </MenuItem>
+                ))}
+              </MenuContent>
+            </MenuRoot></>
+            <Link
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              color="whiteAlpha.900"
+              fontSize="sm"
+              fontWeight="medium"
+              _hover={{ color: "blue.400", textDecoration: "none" }}
+            >
+              Resume
+            </Link></>
+        }
+      </HStack>
+    </Flex>
+  </Box>
+);
+
 export default function About() {
   const [index, setIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-scroll logic: Only runs if the user isn't hovering over the project
   useEffect(() => {
     if (isHovered) return;
 
@@ -50,6 +126,9 @@ export default function About() {
   }, [isHovered]);
 
   return (
+    <Box>
+      <Navbar />
+    
     <Flex direction={{ base: "column", md: "row" }} h="100vh" w="full">
       
      <Box flex="1.2" position="relative" bg="black" overflow="hidden">
@@ -64,9 +143,8 @@ export default function About() {
       bgImage={`linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url(${p.image})`}
       bgSize="cover"
     >
-      {/* We use a Chakra Link with 'asChild' to wrap the NextLink.
-        This allows the entire area to be a link without Type errors.
-      */}
+      {
+      }
       <Link asChild variant="plain" display="block" h="full" w="full" _hover={{ textDecoration: "none" }}>
         <NextLink href={p.href}>
           <Box 
@@ -115,7 +193,6 @@ export default function About() {
       {/* RIGHT SIDE: ABOUT ME */}
       <Flex 
         flex="1" 
-        // In Chakra v3, we use this syntax for light/dark colors:
         bg={{ base: "white", _dark: "gray.950" }} 
         align="center" 
         justify="center" 
@@ -151,5 +228,6 @@ export default function About() {
       </Flex>
 
     </Flex>
+    </Box>
   );
 }
