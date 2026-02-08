@@ -5,7 +5,6 @@ const nextConfig = {
   images: {
     unoptimized: true, 
   },
-  // This helps with some Chakra v3 build issues
   experimental: {
     optimizePackageImports: ["@chakra-ui/react"],
   },

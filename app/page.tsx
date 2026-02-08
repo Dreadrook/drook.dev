@@ -95,7 +95,7 @@ const Navbar = () => (
               </MenuContent>
             </MenuRoot></>
             <Link
-              href="/resume.pdf"
+              href="/Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               color="whiteAlpha.900"
