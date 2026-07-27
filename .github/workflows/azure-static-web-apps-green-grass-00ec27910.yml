@@ -40,9 +40,13 @@ jobs:
           action: "upload"
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
+          # With skip_app_build the action ignores output_location and looks for
+          # index.html directly under app_location, so app_location must be the
+          # already-built export. staticwebapp.config.json lives in public/ so
+          # the export copies it into out/, where Azure reads it.
+          app_location: "out" # Pre-built static export from the step above
           api_location: "" # Api source code path - optional
-          output_location: "out" # Built app content directory - optional
+          output_location: "" # Unused when skip_app_build is true
           skip_app_build: true # We build above so type/lint errors fail the deploy
           ###### End of Repository/Build Configurations ######
 
