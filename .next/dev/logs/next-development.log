@@ -1,0 +1,439 @@
+[00:00:02.767] Server  LOG     ✓ Ready in 2.1s
+[00:00:20.955] Server  WARN    ⚠ Cross origin request detected from 100.77.208.111 to /_next/* resource. In a future major version of Next.js, you will need to explicitly configure "allowedDevOrigins" in next.config to allow this.
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:00:21.013] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:36.337] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:36.557] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <Head>
+        <__next_root_layout_boundary__>
+          <SegmentViewNode type="layout" pagePath="layout.tsx">
+            <SegmentTrieNode>
+            <link>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <RootLayout>
+              <html suppressHydrationWarning={true}>
+                <body>
+                  <Provider>
+                    <ChakraProvider value={{$$chakra:true, ...}}>
+                      <EmotionGlobal>
+                      <EmotionGlobal>
+                      <ColorModeProvider>
+                        <J attribute="class" disableTransitionOnChange={true}>
+                          <V attribute="class" disableTransitionOnChange={true}>
++                           <script
++                             suppressHydrationWarning={true}
++                             nonce=""
++                             dangerouslySetInnerHTML={{__html:"((e, i, s,..."}}
++                           >
+-                           <style data-emotion="css-global ad1llf" data-s="">
+                            ...
+        ...
+
+[00:00:42.463] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:05:34.173] Server  LOG     ✓ Compiled in 1502ms
+[00:05:50.451] Server  LOG     ✓ Compiled in 97ms
+[00:06:06.603] Server  LOG     ✓ Compiled in 97ms
+[00:06:13.913] Server  LOG     ✓ Compiled in 30ms
+[00:08:20.996] Server  LOG     ✓ Compiled in 23ms
+[00:08:28.938] Server  LOG     ✓ Compiled in 24ms
+[00:09:06.291] Server  LOG     ✓ Compiled in 22ms
+[00:09:48.702] Server  LOG     ✓ Compiled in 23ms
+[00:10:20.392] Server  LOG     ✓ Compiled in 29ms
+[00:10:21.414] Browser ERROR   ./app/page.tsx:58:6
+Parsing ecmascript source code failed
+  56 |     
+  57 |      <Flex
+> 58 |      <Box flex="1.2" position="relative" bg="black" overflow="hidden">
+     |      ^
+  59 |   {projects.map((p, i) => (
+  60 |     <Box
+  61 |       key={i}
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:10:41.191] Browser ERROR   ./app/page.tsx:58:6
+Parsing ecmascript source code failed
+  56 |     
+  57 |      <Flex
+> 58 |      <Box flex="1.2" position="relative" bg="black" overflow="hidden">
+     |      ^
+  59 |   {projects.map((p, i) => (
+  60 |     <Box
+  61 |       key={i}
+
+Expression expected
+
+Import traces:
+  Client Component Browser:
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:11:47.072] Server  LOG     ✓ Compiled in 289ms
+[00:12:58.132] Server  LOG     ✓ Compiled in 22ms
+[00:13:34.615] Server  LOG     ✓ Compiled in 32ms
+[00:13:34.718] Browser ERROR   ./app/page.tsx:56:109
+Parsing ecmascript source code failed
+  54 |     <Flex direction={{ base: "column", md: "row" }} h="100vh" w="full">
+  55 |         <Flex direction="column" position="relative" bg="black" overflow="hidden">
+> 56 |         <Box flex="1" bg="black" position="absolute" top="0" left="0" right="0" bottom="0" overflow="hidden", w="full">
+     |                                                                                                             ^
+  57 | test
+  58 |
+  59 |
+
+Expected '</', got ','
+
+Import traces:
+  Client Component Browser:
+    ./app/page.tsx [Client Component Browser]
+    ./app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/page.tsx [Client Component SSR]
+    ./app/page.tsx [Server Component]
+[00:14:06.026] Server  LOG     ✓ Compiled in 20ms
+[00:14:26.739] Server  LOG     ✓ Compiled in 20ms
+[00:14:36.993] Server  LOG     ✓ Compiled in 23ms
+[00:15:38.126] Server  LOG     ✓ Compiled in 21ms
+[00:16:55.630] Server  LOG     ✓ Compiled in 54ms
+[00:17:12.943] Server  LOG     ✓ Compiled in 22ms
+[00:18:24.405] Server  LOG     ✓ Compiled in 117ms
+[00:19:10.642] Server  LOG     ✓ Compiled in 23ms
+[00:20:12.186] Server  LOG     ✓ Compiled in 27ms
+[00:20:20.492] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:20:22.964] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:33.713] Server  LOG     ✓ Compiled in 31ms
+[00:21:35.546] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:38.059] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:27:17.931] Server  LOG     ✓ Compiled in 27ms
+[00:29:08.614] Server  LOG     ✓ Compiled in 252ms
+[00:29:12.522] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:12.647] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <Head>
+        <__next_root_layout_boundary__>
+          <SegmentViewNode type="layout" pagePath="layout.tsx">
+            <SegmentTrieNode>
+            <link>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <RootLayout>
+              <html suppressHydrationWarning={true}>
+                <body>
+                  <Provider>
+                    <ChakraProvider value={{$$chakra:true, ...}}>
+                      <EmotionGlobal>
+                      <EmotionGlobal>
+                      <ColorModeProvider>
+                        <J attribute="class" disableTransitionOnChange={true}>
+                          <V attribute="class" disableTransitionOnChange={true}>
++                           <script
++                             suppressHydrationWarning={true}
++                             nonce=""
++                             dangerouslySetInnerHTML={{__html:"((e, i, s,..."}}
++                           >
+-                           <style data-emotion="css-global ad1llf" data-s="">
+                            ...
+        ...
+
+[00:29:15.084] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:29:15.423] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <Head>
+        <__next_root_layout_boundary__>
+          <SegmentViewNode type="layout" pagePath="layout.tsx">
+            <SegmentTrieNode>
+            <link>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <RootLayout>
+              <html suppressHydrationWarning={true}>
+                <body>
+                  <Provider>
+                    <ChakraProvider value={{$$chakra:true, ...}}>
+                      <EmotionGlobal>
+                      <EmotionGlobal>
+                      <ColorModeProvider>
+                        <J attribute="class" disableTransitionOnChange={true}>
+                          <V attribute="class" disableTransitionOnChange={true}>
++                           <script
++                             suppressHydrationWarning={true}
++                             nonce=""
++                             dangerouslySetInnerHTML={{__html:"((e, i, s,..."}}
++                           >
+-                           <style data-emotion="css-global ad1llf" data-s="">
+                            ...
+        ...
+
+[00:31:53.089] Server  LOG     ✓ Compiled in 57ms
+[00:32:06.067] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:32:06.067] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <Head>
+        <__next_root_layout_boundary__>
+          <SegmentViewNode type="layout" pagePath="layout.tsx">
+            <SegmentTrieNode>
+            <link>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <RootLayout>
+              <html suppressHydrationWarning={true}>
+                <body>
+                  <Provider>
+                    <ChakraProvider value={{$$chakra:true, ...}}>
+                      <EmotionGlobal>
+                      <EmotionGlobal>
+                      <ColorModeProvider>
+                        <J attribute="class" disableTransitionOnChange={true}>
+                          <V attribute="class" disableTransitionOnChange={true}>
++                           <script
++                             suppressHydrationWarning={true}
++                             nonce=""
++                             dangerouslySetInnerHTML={{__html:"((e, i, s,..."}}
++                           >
+-                           <style data-emotion="css-global ad1llf" data-s="">
+                            ...
+        ...
+
+[00:34:13.457] Server  LOG     ✓ Compiled in 27ms
+[00:34:17.536] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:34:17.714] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <Head>
+        <__next_root_layout_boundary__>
+          <SegmentViewNode type="layout" pagePath="layout.tsx">
+            <SegmentTrieNode>
+            <link>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <RootLayout>
+              <html suppressHydrationWarning={true}>
+                <body>
+                  <Provider>
+                    <ChakraProvider value={{$$chakra:true, ...}}>
+                      <EmotionGlobal>
+                      <EmotionGlobal>
+                      <ColorModeProvider>
+                        <J attribute="class" disableTransitionOnChange={true}>
+                          <V attribute="class" disableTransitionOnChange={true}>
++                           <script
++                             suppressHydrationWarning={true}
++                             nonce=""
++                             dangerouslySetInnerHTML={{__html:"((e, i, s,..."}}
++                           >
+-                           <style data-emotion="css-global ad1llf" data-s="">
+                            ...
+        ...
+
+[00:34:30.299] Server  LOG     ✓ Compiled in 35ms
+[00:35:17.843] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:35:18.053] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <Head>
+        <__next_root_layout_boundary__>
+          <SegmentViewNode type="layout" pagePath="layout.tsx">
+            <SegmentTrieNode>
+            <link>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <RootLayout>
+              <html suppressHydrationWarning={true}>
+                <body>
+                  <Provider>
+                    <ChakraProvider value={{$$chakra:true, ...}}>
+                      <EmotionGlobal>
+                      <EmotionGlobal>
+                      <ColorModeProvider>
+                        <J attribute="class" disableTransitionOnChange={true}>
+                          <V attribute="class" disableTransitionOnChange={true}>
++                           <script
++                             suppressHydrationWarning={true}
++                             nonce=""
++                             dangerouslySetInnerHTML={{__html:"((e, i, s,..."}}
++                           >
+-                           <style data-emotion="css-global ad1llf" data-s="">
+                            ...
+        ...
+
+[00:35:22.651] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:35:22.770] Browser ERROR   uncaughtError: Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <RedirectBoundary>
+      <RedirectErrorBoundary router={{...}}>
+        <Head>
+        <__next_root_layout_boundary__>
+          <SegmentViewNode type="layout" pagePath="layout.tsx">
+            <SegmentTrieNode>
+            <link>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <script>
+            <RootLayout>
+              <html suppressHydrationWarning={true}>
+                <body>
+                  <Provider>
+                    <ChakraProvider value={{$$chakra:true, ...}}>
+                      <EmotionGlobal>
+                      <EmotionGlobal>
+                      <ColorModeProvider>
+                        <J attribute="class" disableTransitionOnChange={true}>
+                          <V attribute="class" disableTransitionOnChange={true}>
++                           <script
++                             suppressHydrationWarning={true}
++                             nonce=""
++                             dangerouslySetInnerHTML={{__html:"((e, i, s,..."}}
++                           >
+-                           <style data-emotion="css-global ad1llf" data-s="">
+                            ...
+        ...
+
