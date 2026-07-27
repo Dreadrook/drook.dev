@@ -9,7 +9,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "admin:password": "node scripts/set-admin-password.mjs"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.30.0",

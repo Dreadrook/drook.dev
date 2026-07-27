@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Chakra owns colours, fonts and the light/dark palette (see
+ * src/components/ui/provider.jsx). This file only wires the next/font
+ * variables into the theme and adds a few page-level defaults.
+ *
+ * Do not set `body { background/color/font-family }` here: it overrides
+ * Chakra's tokens and breaks the dark-mode toggle, which is class-based via
+ * next-themes rather than a `prefers-color-scheme` media query.
+ */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --font-fallback: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Keep long words from forcing horizontal scroll on narrow screens. */
+  overflow-wrap: break-word;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), var(--font-fallback);
+  -webkit-font-smoothing: antialiased;
+  /* Never let a wide element create a sideways scrollbar on mobile. */
+  overflow-x: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

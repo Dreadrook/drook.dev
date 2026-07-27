@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Never lint build output or dependencies at any depth. Committed build
+    // artifacts used to bury real findings under thousands of generated ones.
+    "**/.next/**",
+    "**/node_modules/**",
+    "**/out/**",
   ]),
 ]);
 

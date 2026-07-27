@@ -1,0 +1,79 @@
+{
+  "profile": {
+    "name": "Sam Flynn",
+    "initials": "SF",
+    "tagline": "Robotics, homelabs, and open source out of Montana.",
+    "bio": "I'm a curious, creative, and passionate contributor to projects ranging from open source to homelab development and competitive robotics.",
+    "location": "Montana, USA"
+  },
+  "contact": {
+    "email": "sammichaelflynn@gmail.com",
+    "phone": "(406) 410-0101",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Dreadrook"
+      }
+    ]
+  },
+  "resume": {
+    "file": "/Resume.pdf",
+    "label": "Resume",
+    "updated": "2026-01-03"
+  },
+  "projects": [
+    {
+      "slug": "pstars",
+      "title": "Team 17097 Protostars",
+      "summary": "Team Captain heading the FIRST Robotics team 17097",
+      "image": "https://res.cloudinary.com/df4r30cga/image/upload/v1767670164/pebble.jpg",
+      "externalUrl": "",
+      "tags": ["Robotics", "Leadership", "FIRST"],
+      "published": true,
+      "featured": true,
+      "body": [
+        "I'm the team captain of FIRST Robotics team 17097, the Protostars. I lead build season planning, split the work across mechanical, electrical, and programming sub-teams, and keep the robot on schedule for competition.",
+        "Beyond the robot itself, a lot of the job is teaching: getting newer members comfortable with CAD, wiring, and version control so the team keeps its knowledge when members graduate."
+      ],
+      "links": []
+    },
+    {
+      "slug": "stratospore",
+      "title": "Stratospore",
+      "summary": "Helped send some algae to the edge of space with a weather balloon. Huge credit to radi8 who basically did the whole thing :)",
+      "image": "https://radi8.dev/static/media/earth.webp",
+      "externalUrl": "https://radi8.dev/blog/stratospore/",
+      "tags": ["High-altitude balloon", "Payload"],
+      "published": true,
+      "featured": true,
+      "body": [],
+      "links": []
+    },
+    {
+      "slug": "hamilton-dashboard",
+      "title": "Hamilton-Dashboard",
+      "summary": "EnviroDIY Mayfly stream monitoring dashboard using the Python Shiny framework",
+      "image": "https://res.cloudinary.com/df4r30cga/image/upload/v1767670605/hamilton-dash_urklwf.png",
+      "externalUrl": "https://kf2consulting.shinyapps.io/hamilton-dashboard/",
+      "tags": ["Python", "Shiny", "Data viz"],
+      "published": true,
+      "featured": true,
+      "body": [],
+      "links": []
+    },
+    {
+      "slug": "homelab",
+      "title": "Homelab",
+      "summary": "Many hours tinkering with old enterprise hardware has left me with more than a few network appliances...",
+      "image": "",
+      "externalUrl": "",
+      "tags": ["Self-hosting", "Networking", "Linux"],
+      "published": false,
+      "featured": false,
+      "body": [
+        "Many hours tinkering with old enterprise hardware has left me with more than a few network appliances. This page is a work in progress write-up of the rack, the services running on it, and what I broke learning each one."
+      ],
+      "links": []
+    }
+  ]
+}
