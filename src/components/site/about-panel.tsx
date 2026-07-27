@@ -2,7 +2,7 @@ import NextLink from "next/link";
 import { Box, Button, Flex, HStack, Heading, Link, Stack, Text } from "@chakra-ui/react";
 import { LuArrowUpRight, LuFileText } from "react-icons/lu";
 import { site } from "@/lib/content";
-import { NAV_HEIGHT } from "@/components/site/navbar";
+import { NAV_HEIGHT } from "@/lib/layout";
 
 export function AboutPanel() {
   const { profile, contact, resume } = site;

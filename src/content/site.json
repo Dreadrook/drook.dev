@@ -40,7 +40,7 @@
     {
       "slug": "stratospore",
       "title": "Stratospore",
-      "summary": "Helped send some algae to the edge of space with a weather balloon. Huge credit to radi8 who basically did the whole thing :)",
+      "summary": "Helped send algae to the edge of space on a high-altitude weather balloon.",
       "image": "https://radi8.dev/static/media/earth.webp",
       "externalUrl": "https://radi8.dev/blog/stratospore/",
       "tags": ["High-altitude balloon", "Payload"],

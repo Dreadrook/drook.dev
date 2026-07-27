@@ -28,8 +28,12 @@ html {
 body {
   font-family: var(--font-geist-sans), var(--font-fallback);
   -webkit-font-smoothing: antialiased;
-  /* Never let a wide element create a sideways scrollbar on mobile. */
-  overflow-x: hidden;
+  /*
+   * Never let a wide element create a sideways scrollbar on mobile. `clip`
+   * rather than `hidden`: hidden makes the body a scroll container (it
+   * propagates to the viewport), which can break vertical scrolling on iOS.
+   */
+  overflow-x: clip;
 }
 
 @media (prefers-reduced-motion: reduce) {

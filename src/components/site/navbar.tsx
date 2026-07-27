@@ -21,9 +21,7 @@ import {
 import { LuChevronDown, LuMenu, LuX } from "react-icons/lu";
 import { ColorModeButton } from "@/components/ui/color-mode";
 import { isExternal, projectHref, publishedProjects, site } from "@/lib/content";
-
-/** Height of the fixed navbar. Pages that aren't the hero offset by this. */
-export const NAV_HEIGHT = "64px";
+import { NAV_HEIGHT } from "@/lib/layout";
 
 const projects = publishedProjects();
 

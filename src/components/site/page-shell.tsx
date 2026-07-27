@@ -1,5 +1,6 @@
 import { Box, Container } from "@chakra-ui/react";
-import { Navbar, NAV_HEIGHT } from "@/components/site/navbar";
+import { Navbar } from "@/components/site/navbar";
+import { NAV_HEIGHT } from "@/lib/layout";
 
 /**
  * Standard chrome for every page except the home hero: fixed navbar plus a

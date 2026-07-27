@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 import { type Project, isExternal, projectHref } from "@/lib/content";
-import { NAV_HEIGHT } from "@/components/site/navbar";
+import { NAV_HEIGHT } from "@/lib/layout";
 
 const SLIDE_MS = 6000;
 
