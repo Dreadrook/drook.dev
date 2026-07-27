@@ -6,14 +6,6 @@
       "allowedRoles": ["admin"]
     }
   ],
-  "navigationFallback": {
-    "rewrite": "/404.html",
-    "exclude": [
-      "/_next/*",
-      "/uploads/*",
-      "/*.{png,jpg,jpeg,gif,webp,svg,ico,pdf,css,js,json,txt,xml,woff,woff2,webmanifest}"
-    ]
-  },
   "responseOverrides": {
     "404": {
       "rewrite": "/404.html"

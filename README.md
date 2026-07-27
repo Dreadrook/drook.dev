@@ -101,3 +101,6 @@ first. To make that role usable, invite yourself in the Azure portal
 - `staticwebapp.config.json` lives in `public/` so the export copies it to the
   root of `out/`, where Azure reads it. At the repo root it would not be part of
   the uploaded artifact.
+- It has no `navigationFallback`: every route is prerendered, and a fallback
+  rewrite answers unknown paths with HTTP 200, which hides broken links.
+  `responseOverrides` serves `404.html` with a real 404 instead.
