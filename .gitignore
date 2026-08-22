@@ -24,6 +24,10 @@
 .DS_Store
 *.pem
 
+# source material for write-ups: CAD, simulation cases, renders. Reference only,
+# far too large to version here, and lives in its own repos.
+/ContextFolder
+
 # editors
 .idea/
 .vscode/
