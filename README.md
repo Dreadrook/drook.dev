@@ -35,6 +35,28 @@ Adding a project means adding an entry to `projects[]`:
   `/projects/<slug>/`, built from `summary`, `body[]` (one entry per paragraph),
   `tags[]` and `links[]`.
 
+### Long-form write-ups
+
+Three optional fields turn a project page into a full write-up. Omit them and
+the page renders exactly as it did before they existed — see `uplink` in
+`site.json` for a worked example.
+
+| Field      | Shape                              | Renders as                          |
+| ---------- | ---------------------------------- | ----------------------------------- |
+| `stats`    | `{ value, label }[]`               | A row of headline numbers           |
+| `credit`   | `{ text, links[] }`                | An attribution note above the body  |
+| `sections` | `{ heading, body[], figures[] }[]` | Headed sections after `body`         |
+
+A figure is `{ src, alt, caption }`, where `src` is a path under `public/` or an
+absolute URL. Put write-up images in `public/<slug>/`.
+
+The admin editor has no controls for these three yet, so they are hand-edited in
+`site.json`. They are still validated in `src/lib/admin/validate.ts`, and they
+have to be: `writeContent` persists whatever `validateSiteContent` returns, and
+that function whitelists fields — anything it does not carry over is deleted the
+next time you save from `/admin`. Add a field to the type, add it to the
+validator in the same change.
+
 ## Admin panel (local only)
 
 `/admin` is a small editor for everything in `site.json`: bio and contact fields,
