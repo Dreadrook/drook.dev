@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { LuArrowLeft, LuArrowUpRight } from "react-icons/lu";
 import { PageShell } from "@/components/site/page-shell";
+import { ProjectBody } from "@/components/site/project-body";
 import { findProject, internalProjects } from "@/lib/content";
 
 type Params = { slug: string };
@@ -106,21 +107,7 @@ export default async function ProjectPage({
           )}
         </Stack>
 
-        {project.body.length > 0 && (
-          <Stack gap={4} maxW="3xl">
-            {project.body.map((paragraph, i) => (
-              <Text
-                key={i}
-                fontSize={{ base: "md", md: "lg" }}
-                lineHeight="tall"
-                color={{ base: "gray.700", _dark: "gray.300" }}
-                textWrap="pretty"
-              >
-                {paragraph}
-              </Text>
-            ))}
-          </Stack>
-        )}
+        <ProjectBody project={project} />
 
         {project.links.length > 0 && (
           <Flex wrap="wrap" gap={3}>

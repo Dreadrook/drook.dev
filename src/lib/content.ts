@@ -37,6 +37,36 @@ export type Resume = {
   updated: string;
 };
 
+/** A captioned image inside a project section. */
+export type Figure = {
+  /** Absolute URL or a path under `public/`. */
+  src: string;
+  alt: string;
+  caption: string;
+};
+
+/** A headed run of paragraphs, optionally illustrated. */
+export type Section = {
+  heading: string;
+  body: string[];
+  figures: Figure[];
+};
+
+/** One headline number, e.g. value "28.4 km", label "Burst altitude". */
+export type Stat = {
+  label: string;
+  value: string;
+};
+
+/**
+ * Attribution for a project that is not solely the site owner's work. Rendered
+ * before the body so it cannot be missed.
+ */
+export type Credit = {
+  text: string;
+  links: SiteLink[];
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -52,6 +82,14 @@ export type Project = {
   /** Paragraphs rendered on the project's own page. */
   body: string[];
   links: SiteLink[];
+  /**
+   * The three fields below are for long-form write-ups. All are optional: a
+   * short project just sets `body` and stops, and omits these keys entirely.
+   */
+  stats?: Stat[];
+  credit?: Credit;
+  /** Headed sections, rendered after `body`. */
+  sections?: Section[];
 };
 
 export type SiteContent = {

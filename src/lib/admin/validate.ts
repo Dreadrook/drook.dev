@@ -1,10 +1,14 @@
 import type {
   Contact,
+  Credit,
+  Figure,
   Profile,
   Project,
   Resume,
+  Section,
   SiteContent,
   SiteLink,
+  Stat,
 } from "@/lib/content";
 
 /**
@@ -111,6 +115,15 @@ class Checker {
     return this.webUrl(trimmed, field);
   }
 
+  /** A list of paragraphs, with blank ones dropped. */
+  paragraphs(value: unknown, field: string, max = 60): string[] {
+    return this.array(value ?? [], field, max)
+      .map((paragraph, i) =>
+        this.text(paragraph, `${field}[${i}]`, { max: 5000 }).trim(),
+      )
+      .filter((paragraph) => paragraph.length > 0);
+  }
+
   links(value: unknown, field: string, max = 12): SiteLink[] {
     return this.array(value, field, max).map((raw, index) => {
       const bag = this.object(raw, `${field}[${index}]`);
@@ -182,6 +195,78 @@ function validateResume(check: Checker, value: unknown): Resume {
   };
 }
 
+/**
+ * Long-form write-up fields (`stats`, `credit`, `sections`) have no controls in
+ * the admin editor yet — they are authored by hand in `site.json`. They are
+ * still validated here because this function's return value is what gets
+ * written back on save: anything it fails to carry over is silently deleted.
+ */
+
+function validateFigures(check: Checker, value: unknown, at: string): Figure[] {
+  return check.array(value ?? [], at, 6).map((raw, index) => {
+    const bag = check.object(raw, `${at}[${index}]`);
+    const src = check.imageRef(bag.src, `${at}[${index}].src`);
+    if (src.length === 0) {
+      check.fail(`${at}[${index}].src`, "is required");
+    }
+
+    return {
+      src,
+      // Decorative-only figures are not a thing here: every one carries data.
+      alt: check
+        .text(bag.alt, `${at}[${index}].alt`, { max: 250, required: true })
+        .trim(),
+      caption: check
+        .text(bag.caption ?? "", `${at}[${index}].caption`, { max: 700 })
+        .trim(),
+    };
+  });
+}
+
+function validateSections(check: Checker, value: unknown, at: string): Section[] {
+  return check.array(value ?? [], at, 40).map((raw, index) => {
+    const bag = check.object(raw, `${at}[${index}]`);
+    return {
+      heading: check
+        .text(bag.heading, `${at}[${index}].heading`, {
+          max: 160,
+          required: true,
+        })
+        .trim(),
+      body: check.paragraphs(bag.body, `${at}[${index}].body`),
+      figures: validateFigures(check, bag.figures, `${at}[${index}].figures`),
+    };
+  });
+}
+
+function validateStats(check: Checker, value: unknown, at: string): Stat[] {
+  return check.array(value ?? [], at, 8).map((raw, index) => {
+    const bag = check.object(raw, `${at}[${index}]`);
+    return {
+      value: check
+        .text(bag.value, `${at}[${index}].value`, { max: 40, required: true })
+        .trim(),
+      label: check
+        .text(bag.label, `${at}[${index}].label`, { max: 60, required: true })
+        .trim(),
+    };
+  });
+}
+
+function validateCredit(
+  check: Checker,
+  value: unknown,
+  at: string,
+): Credit | undefined {
+  if (value === undefined || value === null) return undefined;
+
+  const bag = check.object(value, at);
+  return {
+    text: check.text(bag.text, `${at}.text`, { max: 1500, required: true }).trim(),
+    links: check.links(bag.links ?? [], `${at}.links`, 6),
+  };
+}
+
 function validateProject(check: Checker, value: unknown, index: number): Project {
   const at = `projects[${index}]`;
   const bag = check.object(value, at);
@@ -197,7 +282,7 @@ function validateProject(check: Checker, value: unknown, index: number): Project
     );
   }
 
-  return {
+  const project: Project = {
     slug,
     title: check.text(bag.title, `${at}.title`, { max: 120, required: true }).trim(),
     summary: check.text(bag.summary, `${at}.summary`, { max: 500 }).trim(),
@@ -211,14 +296,22 @@ function validateProject(check: Checker, value: unknown, index: number): Project
       .filter((tag) => tag.length > 0),
     published: check.bool(bag.published ?? false, `${at}.published`),
     featured: check.bool(bag.featured ?? false, `${at}.featured`),
-    body: check
-      .array(bag.body ?? [], `${at}.body`, 60)
-      .map((paragraph, i) =>
-        check.text(paragraph, `${at}.body[${i}]`, { max: 5000 }).trim(),
-      )
-      .filter((paragraph) => paragraph.length > 0),
+    body: check.paragraphs(bag.body, `${at}.body`),
     links: check.links(bag.links ?? [], `${at}.links`, 10),
   };
+
+  // Attached only when present, so short projects keep a tidy site.json rather
+  // than gaining three empty keys the first time the admin panel saves.
+  const stats = validateStats(check, bag.stats, `${at}.stats`);
+  if (stats.length > 0) project.stats = stats;
+
+  const credit = validateCredit(check, bag.credit, `${at}.credit`);
+  if (credit) project.credit = credit;
+
+  const sections = validateSections(check, bag.sections, `${at}.sections`);
+  if (sections.length > 0) project.sections = sections;
+
+  return project;
 }
 
 /** Throws {@link ValidationError} listing every problem found. */
