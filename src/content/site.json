@@ -79,7 +79,7 @@
         }
       ],
       "credit": {
-        "text": "UpLink was Andrew's project. He designed and built the flight electronics, wrote the firmware, ported SSDV to run over the LoRa link, handled GPS and tracking, and organised the launch. My share was the enclosure, the thermal analysis, the dashboard, and the chase. His write-up is the primary account of the flight and covers everything on the electronics side properly — read that first.",
+        "text": "The UpLink board was Andrew's project. He designed and built the flight electronics and wrote the firmware. My contribution to the project was the enclosure, the thermal analysis, the dashboard, and the chase. His write-up covers everything on the electronics side properly, read that first.",
         "links": [
           {
             "label": "Andrew's write-up on UpLink",
