@@ -23,12 +23,192 @@
   },
   "projects": [
     {
+      "slug": "uplink",
+      "title": "UpLink",
+      "summary": "High-altitude balloon payload flown to 28.42 km over Montana. I designed the printed enclosure, ran the CFD and thermal analysis that decided how it was built, and wrote the dashboard we chased it with.",
+      "image": "/uplink/board-render.webp",
+      "externalUrl": "",
+      "tags": [
+        "High-altitude balloon",
+        "Fusion 360",
+        "OpenFOAM",
+        "CFD",
+        "3D printing",
+        "Next.js"
+      ],
+      "published": true,
+      "featured": true,
+      "body": [
+        "UpLink was a high-altitude balloon payload. It launched from Townsend, Montana on 16 August 2026, burst at 28.42 km, and came down about 140 km downrange near Judith Gap. We never found it. The radio went quiet roughly fifteen minutes before it landed, which left us searching a three-kilometre circle of farmland on foot with no final position.",
+        "The project was Andrew's. I designed the printed enclosure that carried the electronics, ran the thermal analysis that decided how it was built, wrote the dashboard we navigated the chase with, and drove. This page is about those parts."
+      ],
+      "links": [
+        {
+          "label": "Andrew's write-up",
+          "url": "https://radi8.dev/blog/uplink"
+        },
+        {
+          "label": "Hardware, firmware and CAD",
+          "url": "https://github.com/radeeyate/UpLink"
+        },
+        {
+          "label": "Flight data",
+          "url": "https://github.com/radeeyate/UpLink/tree/main/data"
+        },
+        {
+          "label": "Image gallery",
+          "url": "https://uplink.gallery.radi8.dev/"
+        }
+      ],
+      "stats": [
+        {
+          "value": "28.42 km",
+          "label": "Burst altitude"
+        },
+        {
+          "value": "140 km",
+          "label": "Downrange"
+        },
+        {
+          "value": "491 g",
+          "label": "Total flight mass"
+        },
+        {
+          "value": "44 g",
+          "label": "Printed enclosure"
+        }
+      ],
+      "credit": {
+        "text": "UpLink was Andrew's project. He designed and built the flight electronics, wrote the firmware, ported SSDV to run over the LoRa link, handled GPS and tracking, and organised the launch. My share was the enclosure, the thermal analysis, the dashboard, and the chase. His write-up is the primary account of the flight and covers everything on the electronics side properly — read that first.",
+        "links": [
+          {
+            "label": "Andrew's write-up on UpLink",
+            "url": "https://radi8.dev/blog/uplink"
+          }
+        ]
+      },
+      "sections": [
+        {
+          "heading": "The enclosure",
+          "body": [
+            "Most amateur balloon payloads fly in a styrofoam shipping box. It is a genuinely good insulator and trivial to cut, but it comes in fixed sizes, wastes volume around an awkwardly shaped board, and spends around 200 g of an allowance you then have to lift. On a 350 g Kaymont balloon that is real money in helium. The whole flight train — parachute, line, electronics, enclosure — came to 491 g.",
+            "I designed the case in Fusion 360 over about twenty-five revisions, working to the board outline and component list Andrew gave me. It is a cylindrical body with a printed lid and bottom cap, moulded standoffs for the PCB, pockets for the camera, the SMA bulkhead and the temperature sensors, and a single mounting hardware pattern throughout so nothing needed bespoke screws.",
+            "The parts are printed in Sunlu LW-PLA, a foaming filament that expands during extrusion; Andrew worked out the print profile for it, which is its own fight. The finished case weighed 44 g against 74.16 cm³ of CAD volume, so 593 kg/m³ — 48% of solid PLA. The filament did foam, but only to about half density, not the two-thirds void I had assumed when I first sized the thermal model at 25 g.",
+            "One thing the analysis turned up that I had not noticed while drawing it: at the perimeter counts in use, every part prints solid. Four 0.4 mm perimeters per side consume the entire 3.33 mm case wall, and the six-perimeter caps overrun their 3.27 mm wall by 1.5 mm, so the slicer quietly drops perimeters and gap-fills instead. There is no sparse core anywhere in the payload, which means the infill percentage does nothing at all — an infill sweep would have returned identical numbers three times."
+          ],
+          "figures": [
+            {
+              "src": "/uplink/enclosure-thermal.webp",
+              "alt": "Isometric view of the cylindrical UpLink enclosure coloured by surface temperature, with two dark blue sensor pods on the lid and a brass antenna alongside",
+              "caption": "The as-built enclosure, coloured by modelled surface temperature (K) at the coldest point of the flight. The two dark slabs on the lid are the filament test pods, running far colder than the lid they are bolted to. The lid also carries a phone number, which turned out not to help."
+            }
+          ]
+        },
+        {
+          "heading": "Simulating the cold soak",
+          "body": [
+            "The question I wanted answered before we flew was narrow: does the electronics stay inside its temperature ratings, in this enclosure, on this flight?",
+            "Doing that as one fully coupled transient CFD run is not feasible. A 131-minute flight at the Courant limit is on the order of 3.5×10⁷ timesteps — years of wall clock for a question that needs answering this week. So I split it in two, which drops the resolution of the external eddies and keeps the physics that sets the answer.",
+            "Stage A is external convection: steady compressible laminar flow past the real CAD geometry at eight flight conditions from 1.2 to 28.5 km, on both ascent and descent. A 247k-cell snappyHexMesh with prism layers, walls held 30 K above ambient, and the convective coefficient recovered per patch as h = q/(T_wall − T∞) from the solved wall heat flux. Treating it as laminar is defensible across Re 693–24,000 for the forward surfaces; the separated wake is the least trustworthy part of the whole model.",
+            "Stage B is the transient payload: a three-node model — shell, interior, antenna — driven by the Stage A conductance interpolated in log(Re), a four-term radiation budget (direct solar, albedo, Earth IR, cold-sky IR), and the SondeHub flight profile. Biot numbers of 0.018–0.094 at altitude say the parts really are isothermal up there, so a full conjugate solve would have cost a lot and added no physics. The cavity air holds 0.001% of the payload's thermal mass, so the void has no dynamics of its own. OpenFOAM 14 throughout, ParaView for the fields.",
+            "The interesting result is the shape of it. Convective conductance varies twelvefold across the flight and collapses at burst: the payload decouples from air too thin to carry heat away, and sunlight warms it all the way to 0 °C at 28.5 km. So the coldest moment is not burst, which is where intuition puts it. It is 110 minutes in, at 10.1 km on the way down, when descent has restored airflow while the air is still near −41 °C. Predicted interior minimum: −24.4 °C."
+          ],
+          "figures": [
+            {
+              "src": "/uplink/cfd-fields.webp",
+              "alt": "Eight CFD slices showing the warm air footprint around the payload at altitudes from 1.2 to 28.5 km on ascent and descent",
+              "caption": "Stage A: the air temperature footprint at all eight flight conditions, plotted as normalised excess (T − T∞)/30 K. On ascent the wake trails downward; on descent the flow reverses and the plume rises. At 1.2 km the warm layer clings to the surface, and by 28.5 km it engulfs the body — a thick boundary layer is a poor heat exchanger, which is why h collapses."
+            },
+            {
+              "src": "/uplink/interior-temperature.webp",
+              "alt": "Interior, shell, antenna and ambient temperature against flight time, with a lower panel showing altitude and convective conductance",
+              "caption": "Stage B: interior temperature over the flight, with component minimum ratings dotted. The lower panel carries altitude against the CFD convective conductance hA, which collapses twelvefold at burst. The minimum lands on the descent, not at altitude."
+            }
+          ]
+        },
+        {
+          "heading": "What the model changed about the build",
+          "body": [
+            "The finding that reorganised everything else: the interior tracks the shell to within 1.7 K for the entire flight. There is effectively no thermal separation between inside and outside. That cuts both ways. Anything done to the outside lands almost undiminished on the inside, and insulating the inside does close to nothing, because there is nothing to retain — 0.5 W of electronics across 1.09 W/K holds a half-kelvin gradient. The payload is in radiative deficit against a −180 °C effective sky, not leaking heat outward through its walls.",
+            "Ranked by how much each raises the coldest interior temperature: painting the case black, +9.5 K. Painting the end caps black too, another +5.1 K. A 2 W resistive heater, +6.6 K. A 10 mm XPS foam liner, +2.9 K. Thicker walls and more perimeters, +0.2 to +0.3 K. Surface colour beat insulation by roughly 25×, which inverts the usual ballooning advice to fly light colours — that advice assumes you are fighting daytime overheating, and we were not.",
+            "Re-weighing the case from an assumed 25 g to the measured 44 g moved the final answer 0.6 K, because thicker-walled conduction and greater thermal mass pull in opposite directions and very nearly cancel. That insensitivity is the most reassuring number in the study: it means the result does not rest on my foam conductivity model, which is the shakiest assumption in it.",
+            "Component margins at −24.4 °C came out as ESP32-S3 +15.6 K, OV5640 camera +5.6 K, SD card +0.6 K, alkaline AAA −4.4 K. Black paint alone had moved the camera from 3.8 K under its rating to 5.6 K clear. Two items still needed doing: lithium AAA cells instead of alkaline, which are rated to −40 °C and cost nothing thermally, and an industrial-temperature SD card, because +0.6 K is inside the model's own uncertainty and is not a margin. The payload flew black, on lithium."
+          ],
+          "figures": [
+            {
+              "src": "/uplink/colour-comparison.webp",
+              "alt": "Interior temperature curves for a white case, a black case, and an all-black case, with a bar chart of the coldest temperature each reaches",
+              "caption": "All three curves use the measured 44 g enclosure, so surface finish is the only variable. The build flew as the middle trace. The curves separate where hA is smallest — around burst, radiatively coupled to the sun and barely coupled to the air — and the separation persists through the descent minimum."
+            }
+          ]
+        },
+        {
+          "heading": "The sensor pods, and an A/B test I compromised",
+          "body": [
+            "The onboard experiment was a comparison: two pods bolted to the lid, one printed in foaming LW-PLA and one in ordinary PLA, each holding a temperature sensor, to see whether the foamed filament insulates measurably better.",
+            "The model's verdict on that was uncomfortable. Both pods read warm, and how warm depends almost entirely on how they are mounted, not what they are made of. On isolated standoffs the bias is +9.9 K for the foam pod and +10.5 K for the PLA one. Press-fit into the lid it is +32.9 K and +37.5 K. With a trapped air gap, +45.6 K. So mounting spans 10 to 46 K while the material difference is 0.6 to 4.6 K — the mounting swamps the effect the experiment exists to measure.",
+            "Painting the body black made this worse, by a lot. The pods bolt into the lid, and the lid is conductively tied to a black, solar-heated body, so press-fit bias rises from +22 K to +33 K. The paint that rescued the electronics actively corrupts the outside-air measurement. They are independent problems with independent fixes: keep the paint, isolate the pods, and do not let the paint carry over onto the pods themselves — a painted pod on isolated standoffs goes from +9.9 K to +32.4 K of bias, because at that point the housing is heating itself.",
+            "Worse still, on descent the two pods sit in an asymmetric separated wake and their convective coefficients differ by 11 to 44% — larger than the material effect being measured. The descent half of the A/B test is confounded by geometry. Only the ascent leg is comparable, where mirrored geometry forces the two to agree to within 1%.",
+            "This is the part of my own work I am least satisfied with. I ran the analysis late — late enough that it used the measured mass of an already-printed case — so every one of those findings arrived after the geometry was frozen. All of them were actionable at CAD time and none of them were actionable by the time I had them."
+          ],
+          "figures": []
+        },
+        {
+          "heading": "What the flight measured, and where the model was wrong",
+          "body": [
+            "The payload logged 6,741 received packets. A handful are corrupt in ways that survived the radio's error detection — altitudes of 23,000 km, temperatures of −319 °C — so anything derived from the file has to be filtered first; 6,690 rows are physically possible and GPS-locked. Those give a burst altitude of 28.42 km and 140.2 km of ground track, matching Andrew's figures, across 328 distinct images.",
+            "The pods bottomed out at −18.2 °C (PLA) and −17.4 °C (foam), at 14.3 and 13.5 km on the descent. Against the model's own ambient profile at those altitudes, −49.6 and −48.6 °C, that is a bias of +31.4 K and +31.2 K. The model's prediction for pods in conductive contact with the lid was +32.9 K and +37.5 K. The sensors were sealed into the pods with hot glue, which is conductive contact, so this is the regime the model put us in and roughly the magnitude it predicted. The honest caveat: 'ambient' there is my own atmosphere table rather than an independent measurement, so this is a consistency check, not a validation.",
+            "The two pods read the same. Over the whole flight the foam-minus-PLA difference has a median of +0.18 K, and on the ascent leg — the only leg the model says is comparable — a median of −0.06 K inside a −2.8 to +4.0 K spread. There is no filament effect visible in the data at all. That matches what Andrew concluded from the flight, and it is what the model implied would happen: mounting and wake asymmetry dominate, and the material sits somewhere below the noise floor.",
+            "Where the model was plainly wrong is the flight itself. It ran the SondeHub prediction: a 131-minute flight bursting at 91 minutes. The real flight was close to five hours, because the balloon went up underfilled and climbed at 1.5–3 m/s instead of 5. The actual cold soak therefore lasted more than twice as long as anything I simulated. It did not hurt us thermally, but the margins I reported were margins for a flight that did not happen. Had I modelled the flight we actually got, the batteries running out at 4.5 hours would have appeared as a hard constraint on the mission rather than a footnote about endurance.",
+            "The model also ran cold. Its interior node predicted −24.4 °C; the nearest thing actually measured, the microcontroller die, never went below +4.3 °C. Those are not the same node — a die with self-heating sits well above the cavity around it — so the numbers are not directly comparable. But it is a 29 K gap, and it points the same way the pods do: the real payload ran warmer than I modelled it."
+          ],
+          "figures": []
+        },
+        {
+          "heading": "The chase dashboard",
+          "body": [
+            "Andrew's RTL-SDR ground station did the receiving and decoding. An earlier Pi-and-RFM9x listener I wrote was superseded by it and never flew. The dashboard sits on top of whatever the receiver writes: a Next.js app that polls an API route over the receiver's CSV once a second, so a decoded packet is on screen almost immediately.",
+            "The map is Leaflet, with the full trajectory as a polyline and the latest fix as a marker carrying a timestamp tooltip. It has a 'Go to Last Point' button, which sounds trivial and is the control I used most — after panning around terrain you want one action that snaps back to the balloon.",
+            "Tiles are served off local disk, pre-cached to zoom 13 across the whole predicted corridor. Central Montana has no cell coverage worth depending on, and an online basemap is useless in exactly the situation you need a map. That was the single most valuable hour of work in the whole dashboard.",
+            "Telemetry is a Plotly panel for the four temperatures — both pods, the outside-air sensor, the MCU — plus strip charts for altitude, RAM and battery voltage. Charts downsample to 500 points so they stay responsive across a multi-thousand-packet flight. A stats bar carries climb rate over the last few fixes, T+ since the first packet, and time since the last packet. That last number is the one that matters when the link is marginal: without it, a frozen dashboard and a quiet balloon look identical. There is also a scrub bar to replay the flight from the beginning, which is how the CSV mostly got used afterwards.",
+            "Battery voltage was on the dashboard and wrong for the entire flight — the voltage dividers had been damaged earlier in the project, so the panel dutifully plotted a flat, meaningless trace. It would have been better to detect the dead channel and label it unavailable than to render a confident-looking line through bad data."
+          ],
+          "figures": []
+        },
+        {
+          "heading": "Launch day and the search",
+          "body": [
+            "We launched from Townsend because Montana's winds run west to east and Townsend clears the mountains to its east easily. Jared Kamp came out with expertise from Montana State's BOREALIS program and ran the flight predictions, the NOTAM and the sheriff's notification. Andrew's dad and David Hansen worked the fill station and the release. The helium and regulator were donated by American Welding & Gas, which two high-school students could not otherwise have covered.",
+            "The fishing scale we had planned to measure free lift with turned out to be broken, so lift got estimated on an inaccurate bathroom scale instead. The balloon went up underfilled. That one substitution is upstream of nearly everything that went wrong afterwards: a five-hour flight instead of two, against 4.5 hours of battery.",
+            "I drove and navigated the chase east across the state, working off the dashboard and SondeHub. We held the link for most of it, with dropouts in canyons and through towns.",
+            "It went quiet about fifteen minutes before the projected landing, with the last fix at 7,585 m — the batteries had done their measured 4.5 hours almost exactly. The U4B backup tracker on 10 m had already stopped transmitting, for reasons still unexplained. Fifteen minutes out, a SondeHub prediction is good to perhaps a 3 km radius. We searched farmland on foot and by car for around two hours, including private property we got permission to walk, and stopped when it got dark, seven hours into the chase. It is still out there somewhere near Judith Gap."
+          ],
+          "figures": []
+        },
+        {
+          "heading": "What I would do differently",
+          "body": [
+            "Run the thermal analysis before freezing the geometry. Everything it found about sensor mounting was actionable at CAD time and useless by the time I had it. This is the whole lesson of the project for me: the analysis was good and it was late, and late analysis is mostly just an explanation.",
+            "Isolate the sensor pods on standoffs, mask them from the paint, and mirror them about the flow axis rather than the lid centreline so the descent leg is not thrown away to wake asymmetry.",
+            "Model the flight we are actually going to get, including a pessimistic ascent rate. A 131-minute prediction produced margins for a flight less than half the length of the real one.",
+            "Put the tracker on its own battery. The camera drew the power the tracker needed to survive its last fifteen minutes, and those fifteen minutes are the entire difference between a recovered payload and this write-up.",
+            "Measure the paint. Solar absorptivity is now the dominant assumption left in the model — α = 0.95 is a published matte-black figure, not a measurement of what actually went on the case, and the answer moves 0.7 K per 0.05 of α. That is enough to erase the SD card's margin on its own."
+          ],
+          "figures": []
+        }
+      ]
+    },
+    {
       "slug": "pstars",
       "title": "Team 17097 Protostars",
       "summary": "Team Captain heading the FIRST Robotics team 17097",
       "image": "https://res.cloudinary.com/df4r30cga/image/upload/v1767670164/pebble.jpg",
       "externalUrl": "",
-      "tags": ["Robotics", "Leadership", "FIRST"],
+      "tags": [
+        "Robotics",
+        "Leadership",
+        "FIRST"
+      ],
       "published": true,
       "featured": true,
       "body": [
@@ -43,7 +223,10 @@
       "summary": "Helped send algae to the edge of space on a high-altitude weather balloon.",
       "image": "https://radi8.dev/static/media/earth.webp",
       "externalUrl": "https://radi8.dev/blog/stratospore/",
-      "tags": ["High-altitude balloon", "Payload"],
+      "tags": [
+        "High-altitude balloon",
+        "Payload"
+      ],
       "published": true,
       "featured": true,
       "body": [],
@@ -55,7 +238,11 @@
       "summary": "EnviroDIY Mayfly stream monitoring dashboard using the Python Shiny framework",
       "image": "https://res.cloudinary.com/df4r30cga/image/upload/v1767670605/hamilton-dash_urklwf.png",
       "externalUrl": "https://hamilton-ranch-dashboard.azurewebsites.net/",
-      "tags": ["Python", "Shiny", "Data viz"],
+      "tags": [
+        "Python",
+        "Shiny",
+        "Data viz"
+      ],
       "published": true,
       "featured": true,
       "body": [],
@@ -67,7 +254,11 @@
       "summary": "Many hours tinkering with old enterprise hardware has left me with more than a few network appliances...",
       "image": "",
       "externalUrl": "",
-      "tags": ["Self-hosting", "Networking", "Linux"],
+      "tags": [
+        "Self-hosting",
+        "Networking",
+        "Linux"
+      ],
       "published": false,
       "featured": false,
       "body": [
