@@ -17,6 +17,10 @@ const eslintConfig = defineConfig([
     "**/.next/**",
     "**/node_modules/**",
     "**/out/**",
+    // Git-ignored scratch space for write-up source material. It holds whole
+    // other projects, and linting them buried this repo's findings under
+    // 34k unrelated ones.
+    "ContextFolder/**",
   ]),
 ]);
 
