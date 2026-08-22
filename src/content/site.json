@@ -54,7 +54,7 @@
       "title": "Hamilton-Dashboard",
       "summary": "EnviroDIY Mayfly stream monitoring dashboard using the Python Shiny framework",
       "image": "https://res.cloudinary.com/df4r30cga/image/upload/v1767670605/hamilton-dash_urklwf.png",
-      "externalUrl": "https://kf2consulting.shinyapps.io/hamilton-dashboard/",
+      "externalUrl": "https://hamilton-ranch-dashboard.azurewebsites.net/",
       "tags": ["Python", "Shiny", "Data viz"],
       "published": true,
       "featured": true,
